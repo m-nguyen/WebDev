@@ -1,31 +1,29 @@
 body {
-    height: 100vh;
     color: white;
     font-family: courier, monospace;
     text-align: center;
-    background: linear-gradient(-60deg,rgb(39,255,243), rgb(12,44,176));
+    background: linear-gradient(-60deg,rgb(39,255,243), rgb(12,44,176)) fixed;
 }
 
 #weekday {
-    height: auto;
-    width: auto;
-    font-size: 3.5em;
+    height: 75px;
+    width: 400px;
+    margin: auto;
+    margin-top: 150px;
+    font-size: 4em;
 }
 
 #date {
-    height: auto;
-    width: auto;
-    font-size: 1.5em;
+    height: 40px;
+    width: 300px;
+    margin: auto;
+    margin-top: 5px;
+    font-size: 1.75em;
 }
 
 #clock {
-    max-height: 100px;
-    width: 800px;
+    height: 100px;
+    width: 700px;
     margin: auto;
-    position: absolute;
-    top: 0; 
-    left: 0; 
-    bottom: 0; 
-    right: 0;
     font-size: 6em;
 }
