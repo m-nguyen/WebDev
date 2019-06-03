@@ -1,13 +1,19 @@
 $(document).ready(function () {
 
-    function displayTime() {
+    function switchMeridiem(meridiem) {
+        if (meridiem === "AM") {
+          return "PM";
+      } else return "AM";
+    }
+
+    function displayTime(place) {
         var currentTime = new Date();
         var hours = currentTime.getHours();
         var minutes = currentTime.getMinutes();
         var seconds = currentTime.getSeconds();
 
-        // Setting the AM and PM meridiem
-        var meridiem = "AM";  // Default is AM
+        // Setting the AM and PM meridiem, default is AM
+        var meridiem = "AM";  
 
         // Convert from 24 hour to 12 hour format and keep track of the meridiem
         if (hours > 12) {
@@ -15,22 +21,42 @@ $(document).ready(function () {
             meridiem = "PM";
         }
 
-        // 0 AM and 0 PM should return as 12
+        switch (place) {
+            case "Beijing":
+                meridiem = switchMeridiem(meridiem);
+                break;
+            case "Los Angeles":
+                hours -= 3;
+                break;
+            case "Moscow":
+                hours -= 1;
+                meridiem = switchMeridiem(meridiem);
+                break;
+            case "Tokyo":
+                hours += 1;
+                meridiem = switchMeridiem(meridiem);
+                break;           
+            default:
+                // Show local time
+                break;
+        }
+
+        // 0AM / 0PM return 12
         if (hours === 0) {
             hours = 12;
         }
 
-        // If hours is less than ten add a 0                    
+        // If hours is less than ten, add a 0                    
         if (hours < 10) {
             hours = "0" + hours;
         }
 
-        // If minutes is less than ten add a 0                    
+        // If minutes is less than ten, add a 0                    
         if (minutes < 10) {
             minutes = "0" + minutes;
         }
 
-        // If seconds is less than ten add a 0                
+        // If seconds is less than ten, add a 0                
         if (seconds < 10) {
             seconds = "0" + seconds;
         }
