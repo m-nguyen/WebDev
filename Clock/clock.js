@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    var worldClock = ["beijing", "sydney", "moscow", "tokyo"];
+    
     function switchMeridiem(meridiem) {
         if (meridiem === "AM") {
           return "PM";
@@ -19,26 +21,6 @@ $(document).ready(function () {
         if (hours > 12) {
             hours -= 12;
             meridiem = "PM";
-        }
-
-        switch (place) {
-            case "Beijing":
-                meridiem = switchMeridiem(meridiem);
-                break;
-            case "Los Angeles":
-                hours -= 3;
-                break;
-            case "Moscow":
-                hours -= 1;
-                meridiem = switchMeridiem(meridiem);
-                break;
-            case "Tokyo":
-                hours += 1;
-                meridiem = switchMeridiem(meridiem);
-                break;           
-            default:
-                // Show local time
-                break;
         }
 
         // 0AM / 0PM return 12
@@ -62,6 +44,67 @@ $(document).ready(function () {
         }
 
         var clockDiv = document.getElementById("clock");
+        clockDiv.innerText = hours + ":" + minutes + ":" + seconds + " " + meridiem;
+    }
+    
+    function worldTime(place) {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+
+        // Setting the AM and PM meridiem, default is AM
+        var meridiem = "AM";  
+
+        // Convert from 24 hour to 12 hour format and keep track of the meridiem
+        if (hours > 12) {
+            hours -= 12;
+            meridiem = "PM";
+        }
+
+        var clockDiv = document.getElementById(place);
+
+        switch (place) {
+            case "Beijing":
+                meridiem = switchMeridiem(meridiem);
+                break;
+            case "Sydney":
+                hours += 2;
+                meridiem = switchMeridiem(meridiem);
+                break;
+            case "Moscow":
+                hours -= 1;
+                meridiem = switchMeridiem(meridiem);
+                break;
+            case "Tokyo":
+                hours += 1;
+                meridiem = switchMeridiem(meridiem);
+                break;           
+            default:
+                clockDiv.innerText = "Something wrong with displayTime()";
+                break;
+        }
+
+        // 0AM / 0PM return 12
+        if (hours === 0) {
+            hours = 12;
+        }
+
+        // If hours is less than ten, add a 0                    
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+
+        // If minutes is less than ten, add a 0                    
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+
+        // If seconds is less than ten, add a 0                
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
         clockDiv.innerText = hours + ":" + minutes + ":" + seconds + " " + meridiem;
     }
 
@@ -157,6 +200,12 @@ $(document).ready(function () {
 
     // Makes the clock dynamic by running the displayTime every second
     setInterval(displayTime, 1000);
+    
+    setInterval(function () {
+        for (var i = 0; i < worldClock.length; i++) {
+            worldTime(i);
+        }
+    }, 1000);
     
     // Show the date
     displayDate();
