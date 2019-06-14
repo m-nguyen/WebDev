@@ -8,14 +8,14 @@ $(document).ready(function () {
       } else return "AM";
     }
 
-    function displayTime(place) {
+    function displayTime() {
         var currentTime = new Date();
         var hours = currentTime.getHours();
         var minutes = currentTime.getMinutes();
         var seconds = currentTime.getSeconds();
 
         // Setting the AM and PM meridiem, default is AM
-        var meridiem = "AM";  
+        var meridiem = "AM"; 
 
         // Convert from 24 hour to 12 hour format and keep track of the meridiem
         if (hours > 12) {
@@ -195,7 +195,7 @@ $(document).ready(function () {
 
     }
 
-    // Show the time, but time is static
+    // Show time, but time is static
     displayTime();
 
     // Makes the clock dynamic by running the displayTime every second
