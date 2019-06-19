@@ -10,17 +10,16 @@
     <script src="clock.js"></script>
 </head>
 <body>
-    <div id="beijing" class="card red">
-        <p></p>
-    </div>
-    <div id="sydney" class="card yellow">
-        <p></p>
-    </div>
-    <div id="moscow" class="card green">
-        <p></p>
-    </div>
-    <div id="tokyo" class="card purple">
-        <p></p>
-    </div>
+    <form>
+        <select id="country">
+            <option value="" selected disabled hidden></option>
+            <option value="beijing">Beijing</option>
+            <option value="moscow">Moscow</option>
+            <option value="sydney">Sydney</option>
+            <option value="tokyo">Tokyo</option>
+        </select>
+    </form>
+    <h2 id="countryName"></h2>
+    <div id="worldClock"></div>
 </body>
 </html>
