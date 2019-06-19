@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-    var worldClock = ["beijing", "sydney", "moscow", "tokyo"];
     
     function switchMeridiem(meridiem) {
         if (meridiem === "AM") {
@@ -62,21 +60,21 @@ $(document).ready(function () {
             meridiem = "PM";
         }
 
-        var clockDiv = document.getElementById(place);
+        var clockDiv = document.getElementById("worldClock");
 
         switch (place) {
-            case "Beijing":
+            case "beijing":
                 meridiem = switchMeridiem(meridiem);
                 break;
-            case "Sydney":
+            case "sydney":
                 hours += 2;
                 meridiem = switchMeridiem(meridiem);
                 break;
-            case "Moscow":
+            case "moscow":
                 hours -= 1;
                 meridiem = switchMeridiem(meridiem);
                 break;
-            case "Tokyo":
+            case "tokyo":
                 hours += 1;
                 meridiem = switchMeridiem(meridiem);
                 break;           
@@ -192,21 +190,41 @@ $(document).ready(function () {
         weekdayDiv.innerText = weekday;
         var dayDiv = document.getElementById("date");
         dayDiv.innerText = month + " " + day + ", " + year;
-
     }
 
-    // Show time, but time is static
-    displayTime();
+    function displayCountry() {
+        $("#country").change(function() {
+            var selectedCountry = $(this).children("option:selected").val();
+            var countryTag = document.getElementById("countryName");
+            countryTag.innerText = selectedCountry;
+        });
+    }
 
-    // Makes the clock dynamic by running the displayTime every second
-    setInterval(displayTime, 1000);
+    if(document.title === "Clock") {
+        // Show time, but time is static
+        displayTime();
+
+        // Makes the clock dynamic by running the displayTime every second
+        setInterval(displayTime, 1000);
     
-    setInterval(function () {
-        for (var i = 0; i < worldClock.length; i++) {
-            worldTime(i);
-        }
-    }, 1000);
-    
-    // Show the date
-    displayDate();
+        // Show the date
+        displayDate();
+    }
+
+    if(document.title === "World Clocks") {
+
+        // Makes the clock dynamic by running the displayTime every second
+        setInterval(function () {
+            displayCountry();
+
+            var country = $("#countryName").text();
+
+            if (country === "") {
+                $("#countryName").innerText == "";
+            } else {
+                worldTime(country);
+            }
+            
+        }, 1000); 
+    }
 });
